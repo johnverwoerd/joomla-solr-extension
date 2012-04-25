@@ -1,7 +1,7 @@
 joomla-solr-extension
 =====================
 
-Joomla Solr Extension <a href="www.xlab.nl">Xlab.nl</a>
+Joomla Solr Extension <a href="http://www.xlab.nl">Xlab.nl</a>
 
 <h3>What is the Joomla Solr Extension?</h3>
 <p>The Joomla Solr Extension brings enterprise search results to joomla. It can search in millions of articles. Another cool feature is that it contains faceted search.</p>
