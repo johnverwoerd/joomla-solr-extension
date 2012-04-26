@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="content">
+	<name>plg_content_solrarticles</name>
+	<author>John Verwoerd</author>
+	<creationDate>December 2011</creationDate>
+	<copyright>Xlab</copyright>
+	<license>read the LICENSE file</license>
+	<authorEmail>john@xlab.nl</authorEmail>
+	<authorUrl>www.xlab.nl</authorUrl>
+	<version>1.0</version>
+	<description>Adds articles to solr on save</description>
+
+	<files>
+		<filename plugin="plg_solrarticles">plg_solrarticles.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages>
+		<language tag="en-GB">en-GB.plg_content_solrarticles.ini</language>
+		<language tag="en-GB">en-GB.plg_content_solrarticles.sys.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+			</fieldset>
+		</fields>
+	</config>
+
+</extension>
