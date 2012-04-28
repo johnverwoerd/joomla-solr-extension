@@ -19,16 +19,6 @@ defined('_JEXEC') or die;
  */
 class SolrHelper
 {
-	/**
-	 * Configure the Linkbar.
-	 *
-	 * @param	string	The name of the active view.
-	 * @since	1.6
-	 */
-	public static function addSubmenu($vName)
-	{
-		// Not required.
-	}
 
 	/**
 	 * Gets a list of the actions that can be performed.
@@ -39,7 +29,7 @@ class SolrHelper
 	{
 		$user	= JFactory::getUser();
 		$result	= new JObject;
-		$assetName = 'com_search';
+		$assetName = 'com_solr';
 
 		$actions = array(
 			'core.admin', 'core.manage', 'core.create', 'core.edit', 'core.edit.state', 'core.delete'
@@ -51,6 +41,17 @@ class SolrHelper
 
 		return $result;
 	}
+	
+	/**
+	 * 
+	 * @param Solr $solr
+	 * @param Object/Array $mixed
+	 */
+	public static function bindFieldsToSolr( $solr, $mixed   )
+	{
+	    
+	}
+	
 
 	static function santiseSearchWord(&$searchword, $searchphrase)
 	{

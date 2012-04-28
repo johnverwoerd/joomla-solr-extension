@@ -10,6 +10,8 @@
 
 defined('_JEXEC') or die;
 
+jimport('solr.joomlasolr');
+
 // Register dependent classes.
 //JLoader::register('FinderIndexer', JPATH_COMPONENT_ADMINISTRATOR . '/helpers/indexer/indexer.php');
 
@@ -26,7 +28,7 @@ class SolrControllerIndexer extends JController
 
 	public function total()
 	{
-	
+		//TODO: add security here
 		$db = JFactory::getDBO();
 		$query = "SELECT count(*) as totals FROM #__content";
 		$db->setQuery($query);
@@ -37,6 +39,7 @@ class SolrControllerIndexer extends JController
 	
 	public function createindex()
 	{
+		//TODO: add security here!
 		jimport('solrsearch.joomlasolr');
 		
 		$db = JFactory::getDBO();
@@ -78,35 +81,34 @@ class SolrControllerIndexer extends JController
 		$solr = new JoomlaSolr();
 		
 		//TODO: change this	
-		$articlesQuery = "SELECT a.id as animeid, ROUND( v.rating_sum / v.rating_count,2 ) AS rating,  a.`alias`, a.*, atypes.* FROM #__animes as a LEFT JOIN #__anime_types as atypes on a.type_id = atypes.id LEFT JOIN #__anime_rating AS v ON a.id = v.anime_id LIMIT " . (int)$current_rows . "," . $rows_per_update;
+		$articlesQuery = "SELECT a.id as articleid, a.`alias`, a.* FROM #__content as a LIMIT " . (int)$current_rows . "," . $rows_per_update;
 		
 		$db->setQuery( $articlesQuery );
-		$animes = $db->loadObjectList();
-			foreach($animes as $animeMass)
+		
+		
+		
+		$articles = $db->loadObjectList();
+		
+		
+			foreach($articles as $articleMass)
 			{
 				//print_r($animeMass);
 				//die($animeMass->rating . ' <--');
-				
+
+			    
 				$solr->createDocument();
-				//TODO: add joomla_content query here
-				$genresQuery = "SELECT `name`, genre_id FROM #__animegenres as ag LEFT JOIN #__genres as g on g.id = ag.genre_id  WHERE  anime_id = " . $animeMass->animeid ;
 				
-				$db->setQuery( $genresQuery );
-				$genres = $db->loadObjectList();
+				
 				//Update anime
-				$solr->addField('id', $animeMass->animeid);
-				$solr->addField('title', $animeMass->title);
-				$solr->addField('date_from', date("Y-m-d\TG:i:s\Z", strtotime($animeMass->date_from)));
-				$solr->addField('date_end', date("Y-m-d\TG:i:s\Z", strtotime($animeMass->date_end)));
-				$solr->addField('alias', $animeMass->alias);
-				$solr->addField('rating', (double)$animeMass->rating);
-				$solr->addField('image_path', $animeMass->animeAfbeelding);
-				$solr->addField('animetype', $animeMass->name);
-				$solr->addField('introtext', strip_tags($animeMass->introtext));
-				foreach( $genres as $genre )
-				{
-					$solr->addField('genre', $genre->name);
-				}
+				$solr->addField('id', $articleMass->articleid);
+				$solr->addField('catid', $articleMass->articleid);
+				
+				$solr->addField('title', $articleMass->title);
+				
+				$solr->addField('alias', $articleMass->alias);
+				
+				$solr->addField('introtext', strip_tags($articleMass->introtext));
+				
 				$solr->saveDocument();
 			}
 		if ( $current >= 0 )

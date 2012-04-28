@@ -17,22 +17,22 @@ JHtml::_('behavior.multiselect');
 
 $doc = JFactory::getDocument();
 
-$doc->addScript( JURI::base() . '/media/com_solr/js/jquery-1.7.1.min.js');
-$doc->addScript( JURI::base() . '/media/com_solr/js/jquery-ui-1.8.17.custom.min.js');
-$doc->addStyleSheet( JURI::base() . '/media/com_solr/css/redmond/jquery-ui-1.8.17.custom.css');
+$doc->addScript( JURI::root() . 'media/com_solr/js/jquery/jquery-1.7.2.min.js');
+$doc->addScript( JURI::root() . 'media/com_solr/js/jquery/jquery-ui-1.8.19.custom.min.js');
+$doc->addStyleSheet( JURI::root() . 'media/com_solr/css/jquery-ui-themes/redmond/jquery-ui-1.8.19.custom.css');
 //$listOrder	= $this->escape($this->state->get('list.ordering'));
 //$listDirn	= $this->escape($this->state->get('list.direction'));
 $canDo		= SolrHelper::getActions();
 ?>
 <style>
-	.ui-progressbar-value { background-image: url(/media/com_solr/css/redmond/images/pbar-ani.gif); }
+	.ui-progressbar-value { background-image: url(/media/com_solr/css/jquery-ui-themes/redmond/images/pbar-ani.gif); }
 	</style>
 <script type="text/javascript">
 	jQuery('document').ready(function(){
 	
 		function getUrl( percentage)
 		{
-					jQuery.getJSON('index.php?option=com_solrsearch&task=indexer.createindex&format=json&current='+parseInt(percentage), function(data) {
+					jQuery.getJSON('index.php?option=com_solr&task=indexer.createindex&format=json&current='+parseInt(percentage), function(data) {
 						if (data.percentage >= 100)
 						{
 							jQuery("#myProgressBar").progressbar({value:parseInt( 100 )});
@@ -57,7 +57,7 @@ $canDo		= SolrHelper::getActions();
 				height: 100,
 				width:500,
 				modal: true,
-				title:'Reindex anime',
+				title:'Reindex articles',
 				autoOpen:true
 			});
 			
